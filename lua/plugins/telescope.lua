@@ -54,12 +54,15 @@ return {
 		telescope.load_extension("fzf")
 
 		-- Keymaps för telescope
-		local keymap = vim.keymap
-		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Hitta filer i cwd" })
-		keymap.set("n", "<leader>fr", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "find in current file" })
-		-- keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Hitta senaste filer" })
-		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Hitta sträng i cwd" })
-		-- keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
-		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Hitta sträng under cursor i cwd" })
+		local builtin = require("telescope.builtin")
+		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "find files" })
+		vim.keymap.set("n", "<leader>fn", function()
+			builtin.find_files({
+				cmd = vim.fn.stdpath("config"),
+			})
+		end, { desc = "find in nvim" })
+		vim.keymap.set("n", "<leader>fsc", builtin.current_buffer_fuzzy_find, { desc = "find string in current file" })
+		vim.keymap.set("n", "<leader>fsg", builtin.live_grep, { desc = "find string in cwd(global)" })
+		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "find help" })
 	end,
 }

@@ -13,15 +13,15 @@ return {
 			vim.keymap.set("i", "<C-j>", 'copilot#Accept("\\<CR>")', {
 				expr = true,
 				replace_keycodes = false,
-				desc = "Acceptera Copilot-förslag",
+				desc = "Accept Copilot-suggestion",
 			})
 
 			-- Navigera mellan förslag
-			vim.keymap.set("i", "<C-n>", "<Plug>(copilot-next)", { desc = "Nästa Copilot-förslag" })
-			vim.keymap.set("i", "<C-p>", "<Plug>(copilot-previous)", { desc = "Föregående Copilot-förslag" })
+			vim.keymap.set("i", "<C-n>", "<Plug>(copilot-next)", { desc = "Next Copilot-suggestion" })
+			vim.keymap.set("i", "<C-p>", "<Plug>(copilot-previous)", { desc = "Previous Copilot-suggestion" })
 
 			-- Avvisa förslag
-			vim.keymap.set("i", "<C-e>", "<Plug>(copilot-dismiss)", { desc = "Avvisa Copilot-förslag" })
+			vim.keymap.set("i", "<C-e>", "<Plug>(copilot-dismiss)", { desc = "Decline Copilot-suggestion" })
 
 			-- Aktivera Tab för att acceptera förslag (default Copilot-beteende)
 			-- Tab kommer att acceptera Copilot-förslag när de visas
@@ -44,32 +44,32 @@ return {
 				Explain = {
 					prompt = "/COPILOT_EXPLAIN Förklara hur denna kod fungerar.",
 					mapping = "<leader>ce",
-					description = "Förklara kod",
+					description = "Copilot: Förklara kod",
 				},
 				Review = {
 					prompt = "/COPILOT_REVIEW Granska denna kod och ge förbättringsförslag.",
 					mapping = "<leader>cr",
-					description = "Granska kod",
+					description = "Copilot: Granska kod",
 				},
 				Fix = {
 					prompt = "/COPILOT_GENERATE Det finns ett problem med denna kod. Skriv om den så att den fungerar korrekt.",
 					mapping = "<leader>cf",
-					description = "Fixa kod",
+					description = "Copilot: Fixa kod",
 				},
 				Optimize = {
 					prompt = "/COPILOT_GENERATE Optimera denna kod för bättre prestanda och läsbarhet.",
 					mapping = "<leader>co",
-					description = "Optimera kod",
+					description = "Copilot: Optimera kod",
 				},
 				Docs = {
 					prompt = "/COPILOT_GENERATE Skriv dokumentation för denna kod.",
 					mapping = "<leader>cd",
-					description = "Generera dokumentation",
+					description = "Copilot: Generera dokumentation",
 				},
 				Tests = {
 					prompt = "/COPILOT_GENERATE Skriv tester för denna kod.",
 					mapping = "<leader>ct",
-					description = "Generera tester",
+					description = "Copilot: Generera tester",
 				},
 			},
 		},
@@ -78,19 +78,24 @@ return {
 			chat.setup(opts)
 
 			-- Keymaps för Copilot Chat
-			vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Öppna Copilot Chat" })
-			vim.keymap.set("v", "<leader>cc", "<cmd>CopilotChatVisual<cr>", { desc = "Chat om vald kod" })
+			vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Copilot: Open Copilot Chat" })
+			vim.keymap.set(
+				"v",
+				"<leader>cc",
+				"<cmd>CopilotChatVisual<cr>",
+				{ desc = "Copilot: Chat about marked code" }
+			)
 			vim.keymap.set("n", "<leader>cq", function()
 				local input = vim.fn.input("Quick Chat: ")
 				if input ~= "" then
 					chat.ask(input, { selection = require("CopilotChat.select").buffer })
 				end
-			end, { desc = "Snabb Copilot-fråga" })
+			end, { desc = "Copilot: Quick Copilot-chat" })
 
 			-- Copilot Chat med hela filen
 			vim.keymap.set("n", "<leader>cb", function()
 				chat.ask("Förklara denna fil och vad den gör.", { selection = require("CopilotChat.select").buffer })
-			end, { desc = "Chat om hela filen" })
+			end, { desc = "Copilot: Chat about whole file" })
 		end,
 	},
 }
