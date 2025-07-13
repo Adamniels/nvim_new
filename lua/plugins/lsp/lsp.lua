@@ -26,7 +26,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",                             -- LSP source för nvim-cmp
+        "hrsh7th/cmp-nvim-lsp",                                   -- LSP source för nvim-cmp
         { "antosha417/nvim-lsp-file-operations", config = true }, -- File operations i LSP
     },
     config = function()
@@ -143,6 +143,7 @@ return {
 
         -- C#
         lspconfig["omnisharp"].setup({
+            cmd = { "dotnet", vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll" },
             capabilities = capabilities,
             on_attach = on_attach,
         })

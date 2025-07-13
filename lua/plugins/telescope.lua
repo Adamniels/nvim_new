@@ -27,42 +27,42 @@
 -- - Ctrl+u/d: Scrolla preview upp/ner
 
 return {
-	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
-	dependencies = {
-		"nvim-lua/plenary.nvim", -- Lua-funktioner som Telescope behöver
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Snabbare fuzzy finding
-		"nvim-tree/nvim-web-devicons", -- Filtypsikoner
-	},
-	config = function()
-		local telescope = require("telescope")
-		local actions = require("telescope.actions")
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = {
+        "nvim-lua/plenary.nvim",                                  -- Lua-funktioner som Telescope behöver
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Snabbare fuzzy finding
+        "nvim-tree/nvim-web-devicons",                            -- Filtypsikoner
+    },
+    config = function()
+        local telescope = require("telescope")
+        local actions = require("telescope.actions")
 
-		telescope.setup({
-			defaults = {
-				path_display = { "truncate" },
-				mappings = {
-					i = {
-						["<C-k>"] = actions.move_selection_previous,
-						["<C-j>"] = actions.move_selection_next,
-						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-					},
-				},
-			},
-		})
+        telescope.setup({
+            defaults = {
+                path_display = { "truncate" },
+                mappings = {
+                    i = {
+                        ["<C-k>"] = actions.move_selection_previous,
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                    },
+                },
+            },
+        })
 
-		telescope.load_extension("fzf")
+        telescope.load_extension("fzf")
 
-		-- Keymaps för telescope
-		local builtin = require("telescope.builtin")
-		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "find files" })
-		vim.keymap.set("n", "<leader>fn", function()
-			builtin.find_files({
-				cmd = vim.fn.stdpath("config"),
-			})
-		end, { desc = "find in nvim" })
-		vim.keymap.set("n", "<leader>fsc", builtin.current_buffer_fuzzy_find, { desc = "find string in current file" })
-		vim.keymap.set("n", "<leader>fsg", builtin.live_grep, { desc = "find string in cwd(global)" })
-		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "find help" })
-	end,
+        -- Keymaps för telescope
+        local builtin = require("telescope.builtin")
+        vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "find files" })
+        vim.keymap.set("n", "<leader>fn", function()
+            builtin.find_files({
+                cwd = vim.fn.stdpath("config"),
+            })
+        end, { desc = "find in nvim" })
+        vim.keymap.set("n", "<leader>fsc", builtin.current_buffer_fuzzy_find, { desc = "find string in current file" })
+        vim.keymap.set("n", "<leader>fsg", builtin.live_grep, { desc = "find string in cwd(global)" })
+        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "find help" })
+    end,
 }
