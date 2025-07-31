@@ -185,9 +185,14 @@ return {
     },
 
     dependencies = {
-        -- Required dependencies
         "MunifTanjim/nui.nvim",
-        -- Optional dependencies
-        "rcarriga/nvim-notify", -- Better notifications
+        {
+            "rcarriga/nvim-notify",
+            opts = {
+                background_colour = "#000000",
+                stages = "fade_in_slide_out",
+                render = "compact",
+            }
+        },
     },
 }
