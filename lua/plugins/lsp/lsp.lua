@@ -142,11 +142,21 @@ return {
         })
 
         -- C#
-        lspconfig["omnisharp"].setup({
-            cmd = { "dotnet", vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll" },
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        do
+            -- Mason's shim som alltid pekar rätt internt
+            local mason_omnisharp = vim.fn.stdpath("data") .. "/mason/bin/omnisharp"
+
+            -- (valfritt) varna om shimen saknas
+            if vim.fn.executable(mason_omnisharp) == 0 then
+                vim.notify("OmniSharp saknas. Kör :MasonInstall omnisharp", vim.log.levels.WARN)
+            end
+
+            lspconfig.omnisharp.setup({
+                cmd = { mason_omnisharp, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+        end
 
         -- HTML
         lspconfig["html"].setup({
