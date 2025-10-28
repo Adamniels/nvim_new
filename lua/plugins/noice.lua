@@ -189,7 +189,7 @@ return {
         {
             "rcarriga/nvim-notify",
             opts = {
-                background_colour = "#000000",
+                background_colour = "NONE",
                 stages = "fade_in_slide_out",
                 render = "compact",
             }
