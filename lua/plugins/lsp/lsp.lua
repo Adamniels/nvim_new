@@ -144,7 +144,8 @@ return {
         -- C#
         do
             -- Mason's shim som alltid pekar rätt internt
-            local mason_omnisharp = vim.fn.stdpath("data") .. "/mason/bin/omnisharp"
+            local mason_omnisharp = vim.fn.stdpath("data") ..
+                "/mason/bin/OmniSharp" -- arch case sensitive behöver stort O och S i omnisharp
 
             -- (valfritt) varna om shimen saknas
             if vim.fn.executable(mason_omnisharp) == 0 then
