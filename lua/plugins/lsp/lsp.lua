@@ -30,7 +30,6 @@ return {
         { "antosha417/nvim-lsp-file-operations", config = true }, -- File operations i LSP
     },
     config = function()
-        local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         -- Tangentbindningar för LSP
@@ -105,19 +104,21 @@ return {
         })
 
         -- TypeScript/JavaScript
-        lspconfig["ts_ls"].setup({
+        vim.lsp.config('ts_ls', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('ts_ls')
 
         -- Python
-        lspconfig["pyright"].setup({
+        vim.lsp.config('pyright', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('pyright')
 
         -- Rust
-        lspconfig["rust_analyzer"].setup({
+        vim.lsp.config('rust_analyzer', {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = {
@@ -128,18 +129,21 @@ return {
                 },
             },
         })
+        vim.lsp.enable('rust_analyzer')
 
         -- C/C++
-        lspconfig["clangd"].setup({
+        vim.lsp.config('clangd', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('clangd')
 
         -- Java
-        lspconfig["jdtls"].setup({
+        vim.lsp.config('jdtls', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('jdtls')
 
         -- C#
         do
@@ -152,33 +156,37 @@ return {
                 vim.notify("OmniSharp saknas. Kör :MasonInstall omnisharp", vim.log.levels.WARN)
             end
 
-            lspconfig.omnisharp.setup({
+            vim.lsp.config('omnisharp', {
                 cmd = { mason_omnisharp, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
                 capabilities = capabilities,
                 on_attach = on_attach,
             })
+            vim.lsp.enable('omnisharp')
         end
 
         -- HTML
-        lspconfig["html"].setup({
+        vim.lsp.config('html', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('html')
 
         -- CSS
-        lspconfig["cssls"].setup({
+        vim.lsp.config('cssls', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('cssls')
 
         -- JSON
-        lspconfig["jsonls"].setup({
+        vim.lsp.config('jsonls', {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        vim.lsp.enable('jsonls')
 
         -- Lua (för Neovim konfiguration)
-        lspconfig["lua_ls"].setup({
+        vim.lsp.config('lua_ls', {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = {
@@ -192,5 +200,6 @@ return {
                 },
             },
         })
+        vim.lsp.enable('lua_ls')
     end,
 }
