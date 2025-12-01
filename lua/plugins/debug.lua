@@ -8,11 +8,25 @@ return {
             "nvim-neotest/nvim-nio",
             "williamboman/mason.nvim",
             "jay-babu/mason-nvim-dap.nvim",
+            "theHamsta/nvim-dap-virtual-text",
         },
         config = function()
             local dap = require("dap")
             local dapui = require("dapui")
 
+            --------------------------------------------------------------------
+            -- NEW: inline-variabler (virtual text)
+            --------------------------------------------------------------------
+            require("nvim-dap-virtual-text").setup({
+                -- visa värden även för variabler som inte ändrats
+                highlight_changed_variables = true,
+                show_stop_reason = true,
+                commented = false, -- om true -> kommentars-prefix framför värden
+            })
+
+            --------------------------------------------------------------------
+            -- DAP UI + Mason
+            --------------------------------------------------------------------
             dapui.setup()
 
             require("mason-nvim-dap").setup({
@@ -21,6 +35,9 @@ return {
                 handlers = {},
             })
 
+            --------------------------------------------------------------------
+            -- C# (NetCoreDbg)
+            --------------------------------------------------------------------
             -- Adapter för C# (NetCoreDbg)
             dap.adapters.coreclr = {
                 type = "executable",
@@ -34,23 +51,51 @@ return {
                     name = "Launch - NetCoreDbg",
                     request = "launch",
                     program = function()
-                        return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/net9.0/", "file")
+                        return vim.fn.input(
+                            "Path to dll: ",
+                            vim.fn.getcwd() .. "/bin/Debug/net9.0/",
+                            "file"
+                        )
                     end,
                 },
             }
 
-            -- UI auto-open och keybinds
+            --------------------------------------------------------------------
+            -- Python (debugpy)
+            --------------------------------------------------------------------
+            -- Adapter för Python (debugpy)
+            dap.adapters.debugpy = {
+                type = "executable",
+                command = "python3", -- eller "python" beroende på system
+                args = { "-m", "debugpy.adapter" },
+            }
+
+            dap.configurations.python = {
+                {
+                    type = "debugpy",
+                    request = "launch",
+                    name = "Launch current file",
+                    program = "${file}", -- kör aktuell buffert
+                    console = "integratedTerminal",
+                },
+            }
+
+            --------------------------------------------------------------------
+            -- UI auto-open och stängning
+            --------------------------------------------------------------------
             dap.listeners.after.event_initialized["dapui_config"] = function()
                 dapui.open()
             end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close()
-            end
+            -- dap.listeners.before.event_terminated["dapui_config"] = function()
+            --     dapui.close()
+            -- end
+            -- dap.listeners.before.event_exited["dapui_config"] = function()
+            --     dapui.close()
+            -- end
 
-            -- Nyckelbindningar
+            --------------------------------------------------------------------
+            -- Nyckelbindningar (EXISTERANDE)
+            --------------------------------------------------------------------
             local map = vim.keymap.set
             map("n", "<F5>", function()
                 dap.continue()
@@ -73,6 +118,24 @@ return {
             map("n", "<leader>gu", function()
                 dapui.toggle()
             end, { desc = "Toggle DAP UI" })
+
+            --------------------------------------------------------------------
+            -- NEW: snyggare symboler för breakpoints & current line
+            --------------------------------------------------------------------
+            vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "ErrorMsg" })
+            vim.fn.sign_define("DapStopped", { text = "➜", texthl = "WarningMsg" })
+
+            -- NEW: highlight på raden där exekveringen står
+            vim.cmd([[
+              hi DapStopped guibg=#3b4252 guifg=#e5e9f0
+            ]])
+
+            --------------------------------------------------------------------
+            -- NEW: hover-inspect på variabler (som i VSCode)
+            --------------------------------------------------------------------
+            map({ "n", "v" }, "<leader>dh", function()
+                require("dap.ui.widgets").hover()
+            end, { desc = "DAP Hover" })
         end,
     },
 }
