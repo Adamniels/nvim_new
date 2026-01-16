@@ -9,45 +9,55 @@
 -- - Bra kontrast och läsbarhet
 
 return {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000, -- Ladda först för att undvika färgproblem
+    "navarasu/onedark.nvim",
+    priority = 1000,
     config = function()
-        -- Konfigurera catppuccin innan vi aktiverar det
-        require("catppuccin").setup({
-            flavour = "mocha", -- latte, frappe, macchiato, mocha
-            background = {     -- :h background
-                light = "latte",
-                dark = "mocha",
-            },
-            transparent_background = true,
-            show_end_of_buffer = false,
-            term_colors = false,
-            dim_inactive = {
-                enabled = false,
-                shade = "dark",
-                percentage = 0.15,
-            },
-            no_italic = false,
-            no_bold = false,
-            no_underline = false,
-            styles = {
-                comments = { "italic" },
-                conditionals = { "italic" },
-                loops = {},
-                functions = {},
-                keywords = {},
-                strings = {},
-                variables = {},
-                numbers = {},
-                booleans = {},
-                properties = {},
-                types = {},
-                operators = {},
-            },
+        require("onedark").setup({
+            style = "dark"
         })
-
-        -- Aktivera färgtemat
-        vim.cmd([[colorscheme catppuccin]])
-    end,
+        require("onedark").load()
+    end
 }
+-- return {
+--     "catppuccin/nvim",
+--     name = "catppuccin",
+--     priority = 1000, -- Ladda först för att undvika färgproblem
+--     config = function()
+--         -- Konfigurera catppuccin innan vi aktiverar det
+--         require("catppuccin").setup({
+--             flavour = "mocha", -- latte, frappe, macchiato, mocha
+--             background = {     -- :h background
+--                 light = "latte",
+--                 dark = "mocha",
+--             },
+--             transparent_background = true,
+--             show_end_of_buffer = false,
+--             term_colors = false,
+--             dim_inactive = {
+--                 enabled = false,
+--                 shade = "dark",
+--                 percentage = 0.15,
+--             },
+--             no_italic = false,
+--             no_bold = false,
+--             no_underline = false,
+--             styles = {
+--                 comments = { "italic" },
+--                 conditionals = { "italic" },
+--                 loops = {},
+--                 functions = {},
+--                 keywords = {},
+--                 strings = {},
+--                 variables = {},
+--                 numbers = {},
+--                 booleans = {},
+--                 properties = {},
+--                 types = {},
+--                 operators = {},
+--             },
+--         })
+--
+--         -- Aktivera färgtemat
+--         vim.cmd([[colorscheme catppuccin]])
+--     end,
+-- }

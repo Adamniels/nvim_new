@@ -23,15 +23,15 @@
 -- - Procent genom fil
 
 return {
-  "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" }, -- För ikoner i statusraden
-  config = function()
-    local lualine = require("lualine")
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- För ikoner i statusraden
+    config = function()
+        local lualine = require("lualine")
 
-    lualine.setup({
-      options = {
-        theme = "catppuccin",
-      },
-    })
-  end,
+        lualine.setup({
+            options = {
+                theme = "onedark",
+            },
+        })
+    end,
 }
