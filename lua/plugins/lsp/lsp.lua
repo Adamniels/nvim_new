@@ -201,5 +201,21 @@ return {
             },
         })
         vim.lsp.enable('lua_ls')
+        -- LaTeX
+        vim.lsp.config('texlab', {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+                texlab = {
+                    build = {
+                        executable = "latexmk",
+                        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-file-line-error", "%f" },
+                        onSave = true,
+                    },
+                    chktex = { onOpenAndSave = true, onEdit = true }, -- <--- viktig
+                },
+            },
+        })
+        vim.lsp.enable('texlab')
     end,
 }
