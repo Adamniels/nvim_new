@@ -30,7 +30,8 @@ return {
 
         lualine.setup({
             options = {
-                theme = "onedark",
+                -- theme = "onedark",
+                theme = "dayfox",
             },
         })
     end,
