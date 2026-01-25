@@ -7,24 +7,24 @@
 -- - Konsistent färgschema genom hela editorn
 -- - Anpassningsbara färger och stilar
 -- - Bra kontrast och läsbarhet
-return {
-    "EdenEast/nightfox.nvim",
-    priority = 1000,
-    config = function()
-        vim.opt.background = "light"
-        vim.cmd("colorscheme dayfox")
-    end
-}
 -- return {
---     "navarasu/onedark.nvim",
+--     "EdenEast/nightfox.nvim",
 --     priority = 1000,
 --     config = function()
---         require("onedark").setup({
---             style = "dark"
---         })
---         require("onedark").load()
+--         vim.opt.background = "light"
+--         vim.cmd("colorscheme dayfox")
 --     end
 -- }
+return {
+    "navarasu/onedark.nvim",
+    priority = 1000,
+    config = function()
+        require("onedark").setup({
+            style = "dark"
+        })
+        require("onedark").load()
+    end
+}
 -- return {
 --     "catppuccin/nvim",
 --     name = "catppuccin",
