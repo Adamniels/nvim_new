@@ -4,7 +4,7 @@
 local keymap = vim.keymap
 
 -- Leader key
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 
 -- Normal mode mappings
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Rensa sökmarkering" })
@@ -14,12 +14,13 @@ keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Dela fönster vertikalt" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Dela fönster horisontellt" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Gör fönster lika stora" })
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Stäng aktuellt fönster" })
+keymap.set("n", "<f13>e", "<C-w>l", { desc = "Gå till fönster till höger" })
 
 -- Flik-hantering
 keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Öppna ny flik" })
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Stäng aktuell flik" })
-keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Gå till nästa flik" })
-keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Gå till föregående flik" })
+keymap.set("n", "<f13>n", "<cmd>tabn<CR>", { desc = "Gå till nästa flik" })
+keymap.set("n", "<f13>p", "<cmd>tabp<CR>", { desc = "Gå till föregående flik" })
 
 -- Buffer-hantering
 keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Ta bort buffer" })

@@ -30,9 +30,9 @@ return {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {
-        "nvim-lua/plenary.nvim",                                  -- Lua-funktioner som Telescope behöver
+        "nvim-lua/plenary.nvim",                                        -- Lua-funktioner som Telescope behöver
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Snabbare fuzzy finding
-        "nvim-tree/nvim-web-devicons",                            -- Filtypsikoner
+        "nvim-tree/nvim-web-devicons",                                  -- Filtypsikoner
     },
     config = function()
         local telescope = require("telescope")
@@ -55,14 +55,14 @@ return {
 
         -- Keymaps för telescope
         local builtin = require("telescope.builtin")
-        vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "find files" })
+        vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
+        vim.keymap.set("n", "<C-f>", builtin.current_buffer_fuzzy_find, { desc = "Find string in current file" })
+        vim.keymap.set("n", "<C-g>", builtin.live_grep, { desc = "Find string globally", noremap = true })
         vim.keymap.set("n", "<leader>fn", function()
             builtin.find_files({
                 cwd = vim.fn.stdpath("config"),
             })
-        end, { desc = "find in nvim" })
-        vim.keymap.set("n", "<leader>fsc", builtin.current_buffer_fuzzy_find, { desc = "find string in current file" })
-        vim.keymap.set("n", "<leader>fsg", builtin.live_grep, { desc = "find string in cwd(global)" })
-        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "find help" })
+        end, { desc = "Find in nvim" })
+        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
     end,
 }

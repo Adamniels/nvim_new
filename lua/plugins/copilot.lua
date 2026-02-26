@@ -1,49 +1,76 @@
 return {
-    -- GitHub Copilot AI-kodassistent
+    -- GitHub Copilot (Lua implementation with better nvim-cmp integration)
     {
-        "github/copilot.vim",
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
         event = "InsertEnter",
         config = function()
-            -- Aktivera Copilot för alla filtyper
-            vim.g.copilot_filetypes = {
-                ["*"] = true,
-            }
-
-            -- Anpassade keybindings för Copilot
-            vim.keymap.set("i", "<C-j>", 'copilot#Accept("\\<CR>")', {
-                expr = true,
-                replace_keycodes = false,
-                desc = "Accept Copilot-suggestion",
+            require("copilot").setup({
+                panel = {
+                    enabled = true,
+                    auto_refresh = false,
+                    keymap = {
+                        jump_prev = "[[",
+                        jump_next = "]]",
+                        accept = "<CR>",
+                        refresh = "gr",
+                        open = "<M-CR>", -- Alt+Enter to open panel
+                    },
+                    layout = {
+                        position = "bottom", -- | top | left | right
+                        ratio = 0.4,
+                    },
+                },
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    debounce = 75,
+                    keymap = {
+                        accept = "<C-y>",        -- Accept whole suggestion
+                        accept_word = "<S-Tab>", -- Accept word (Shift+Tab)
+                        accept_line = "<Tab>",   -- Accept line (Tab)
+                        next = "<C-n>",          -- Next suggestion
+                        prev = "<C-p>",          -- Previous suggestion
+                        dismiss = "<C-x>",       -- Dismiss suggestion
+                    },
+                },
+                filetypes = {
+                    yaml = false,
+                    markdown = false,
+                    help = false,
+                    gitcommit = false,
+                    gitrebase = false,
+                    hgcommit = false,
+                    svn = false,
+                    cvs = false,
+                    ["."] = false,
+                },
+                copilot_node_command = "node", -- Node.js version must be > 18.x
+                server_opts_overrides = {},
             })
-
-            -- Navigera mellan förslag
-            vim.keymap.set("i", "<C-n>", "<Plug>(copilot-next)", { desc = "Next Copilot-suggestion" })
-            vim.keymap.set("i", "<C-p>", "<Plug>(copilot-previous)", { desc = "Previous Copilot-suggestion" })
-
-            -- Avvisa förslag
-            vim.keymap.set("i", "<C-e>", "<Plug>(copilot-dismiss)", { desc = "Decline Copilot-suggestion" })
-
-            -- Aktivera Tab för att acceptera förslag (default Copilot-beteende)
-            -- Tab kommer att acceptera Copilot-förslag när de visas
-            -- TODO: vill byta så jag accepterar med ctrl tab istället
-
-            -- Disable copilot from the start, to start run enable then suggestions
-            vim.g.copilot_enabled = false
         end,
     },
 
-    -- GitHub Copilot Chat (AI-chat i Neovim)
+    -- Copilot integration for nvim-cmp (shows Copilot suggestions in cmp menu)
+    {
+        "zbirenbaum/copilot-cmp",
+        dependencies = { "zbirenbaum/copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    },
+
+    -- GitHub Copilot Chat
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
         dependencies = {
-            { "github/copilot.vim" },    -- or github/copilot.lua
-            { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+            { "zbirenbaum/copilot.lua" },
+            { "nvim-lua/plenary.nvim" },
         },
         event = "VeryLazy",
         opts = {
-            debug = false, -- Enable debugging
-            -- Anpassade prompts för vanliga uppgifter
+            debug = false,
             prompts = {
                 Explain = {
                     prompt = "/COPILOT_EXPLAIN Förklara hur denna kod fungerar.",
@@ -83,24 +110,18 @@ return {
             chat.setup(opts)
 
             -- Keymaps för Copilot Chat
-            vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Copilot: Open Copilot Chat" })
-            vim.keymap.set(
-                "v",
-                "<leader>cc",
-                "<cmd>CopilotChatVisual<cr>",
-                { desc = "Copilot: Chat about marked code" }
-            )
+            vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Copilot: Open Chat" })
+            vim.keymap.set("v", "<leader>cc", "<cmd>CopilotChatVisual<cr>", { desc = "Copilot: Chat about marked code" })
+
             vim.keymap.set("n", "<leader>cq", function()
                 local input = vim.fn.input("Quick Chat: ")
                 if input ~= "" then
                     chat.ask(input, { selection = require("CopilotChat.select").buffer })
                 end
-            end, { desc = "Copilot: Quick Copilot-chat" })
-
-            -- Copilot Chat med hela filen
+            end, { desc = "Copilot: Quick chat" })
             vim.keymap.set("n", "<leader>cb", function()
                 chat.ask("Förklara denna fil och vad den gör.", { selection = require("CopilotChat.select").buffer })
-            end, { desc = "Copilot: Chat about whole file" })
+            end, { desc = "Copilot: Chat about file" })
         end,
     },
 }

@@ -56,8 +56,12 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
+                -- Use Ctrl+J/K for navigation
                 ["<C-k>"] = cmp.mapping.select_prev_item(),
                 ["<C-j>"] = cmp.mapping.select_next_item(),
+                -- Disable Ctrl+N/P so Copilot inline suggestions can use them
+                ["<C-n>"] = cmp.mapping(function() end, { "i", "c" }),
+                ["<C-p>"] = cmp.mapping(function() end, { "i", "c" }),
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 -- får upp fönstret om det inte dyker upp automatiskt
@@ -69,7 +73,8 @@ return {
                 ["<C-l>"] = cmp.mapping.confirm({ select = true }),
             }),
             sources = cmp.config.sources({
-                { name = "nvim_lsp" }, -- LSP completion (HÖGST PRIORITET)
+                { name = "copilot" },  -- GitHub Copilot suggestions
+                { name = "nvim_lsp" }, -- LSP completion
                 { name = "luasnip" },  -- Snippets
                 { name = "buffer" },   -- Text från buffrar
                 { name = "path" },     -- Filsökvägar
