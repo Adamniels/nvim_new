@@ -20,7 +20,9 @@ return {
     priority = 1000,
     config = function()
         require("onedark").setup({
-            style = "dark"
+            style = "dark",
+            transparent = true,          -- use terminal background everywhere
+            lualine = { transparent = true },
         })
         require("onedark").load()
     end
