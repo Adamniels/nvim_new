@@ -13,6 +13,8 @@
 --
 -- Språkservrar som kommer att installeras:
 -- - TypeScript/JavaScript: typescript-language-server
+-- - ESLint: eslint-lsp (diagnostik + auto-fix)
+-- - Tailwind CSS: tailwindcss-language-server
 -- - Python: pyright (Microsoft's Python language server)
 -- - Rust: rust-analyzer
 -- - C/C++: clangd
@@ -109,6 +111,26 @@ return {
             on_attach = on_attach,
         })
         vim.lsp.enable('ts_ls')
+
+        -- ESLint (diagnostik + auto-fix för JS/TS/React)
+        vim.lsp.config('eslint', {
+            capabilities = capabilities,
+            on_attach = function(client, bufnr)
+                on_attach(client, bufnr)
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    buffer = bufnr,
+                    command = "silent! EslintFixAll",
+                })
+            end,
+        })
+        vim.lsp.enable('eslint')
+
+        -- Tailwind CSS
+        vim.lsp.config('tailwindcss', {
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+        vim.lsp.enable('tailwindcss')
 
         -- Python
         vim.lsp.config('pyright', {

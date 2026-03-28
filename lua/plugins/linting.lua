@@ -9,10 +9,10 @@
 -- - Automatisk körning vid fil-ändringar
 --
 -- Linters som används:
--- - ESLint: JavaScript/TypeScript kod-kvalitet och stil
 -- - Flake8: Python kod-kvalitet och PEP 8 compliance
 -- - Clippy: Rust linting och suggestions (via rust-analyzer)
 -- - cppcheck: C/C++ statisk analys
+-- - ESLint: Hanteras via ESLint LSP (eslint-lsp), inte här
 --
 -- Linting körs automatiskt:
 -- - När du öppnar en fil
@@ -33,13 +33,10 @@ return {
 
     -- Konfigurera linters per filtyp
     lint.linters_by_ft = {
-      javascript = { "eslint_d" },
-      typescript = { "eslint_d" },
-      javascriptreact = { "eslint_d" },
-      typescriptreact = { "eslint_d" },
       python = { "flake8" },
       -- Rust använder clippy via rust-analyzer LSP
       -- C/C++ använder clang-tidy via clangd LSP
+      -- JS/TS linting hanteras av ESLint LSP (se lsp.lua)
     }
 
     -- Anpassa linter-inställningar

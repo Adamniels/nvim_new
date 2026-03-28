@@ -62,6 +62,7 @@ return {
         keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Växla filutforskare på aktuell fil" })
         keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Kollapsa filutforskare" })
         keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Uppdatera filutforskare" })
-        keymap.set("n", "<f13>t", "<cmd>NvimTreeOpen<CR>", { desc = "Open file explorer" })
+        -- keymap.set("n", "<f13>t", "<cmd>NvimTreeOpen<CR>", { desc = "Open file explorer" })
+        keymap.set("n", "<f13>t", "<cmd>NvimTreeFindFile<CR>", { desc = "Växla filutforskare på aktuell fil" })
     end,
 }

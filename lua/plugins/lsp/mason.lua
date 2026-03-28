@@ -7,7 +7,18 @@ return {
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "clangd", "omnisharp", "html", "cssls", "jsonls" }, -- exempel
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "clangd",
+                    "omnisharp",
+                    "html",
+                    "cssls",
+                    "jsonls",
+                    "ts_ls",
+                    "eslint",
+                    "tailwindcss",
+                },
                 automatic_enable = false,
             })
         end,
