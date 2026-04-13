@@ -1,0 +1,5 @@
+WRN 2026-03-29T13:02:50.466 ?.28563    server_start:199: Failed to start server: operation not permitted: /var/folders/c2/qdn8gnvn3cn9gj6jzf48b6d00000gn/T/nvim.adamnielsen/41fqkf/nvim.28563.0
+WRN 2026-03-29T18:54:54.685 ?.83278    server_start:199: Failed to start server: operation not permitted: /var/folders/c2/qdn8gnvn3cn9gj6jzf48b6d00000gn/T/nvim.adamnielsen/DMXHhR/nvim.83278.0
+WRN 2026-04-01T07:51:52.913 ?.10960    server_start:199: Failed to start server: operation not permitted: /var/folders/c2/qdn8gnvn3cn9gj6jzf48b6d00000gn/T/nvim.adamnielsen/PcmOEh/nvim.10960.0
+WRN 2026-04-01T07:51:52.913 ?.10959    server_start:199: Failed to start server: operation not permitted: /var/folders/c2/qdn8gnvn3cn9gj6jzf48b6d00000gn/T/nvim.adamnielsen/dkrC6p/nvim.10959.0
+WRN 2026-04-01T07:51:52.913 ?.10961    server_start:199: Failed to start server: operation not permitted: /var/folders/c2/qdn8gnvn3cn9gj6jzf48b6d00000gn/T/nvim.adamnielsen/9lhpnd/nvim.10961.0

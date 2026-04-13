@@ -26,6 +26,9 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- För filtypsikoner
     config = function()
         local nvimtree = require("nvim-tree")
+        local api = require("nvim-tree.api")
+        local default_width = 35
+        local focused_width = 55
 
         -- Inaktivera netrw (Neovims inbyggda filhanterare) för att undvika konflikter
         vim.g.loaded_netrw = 1
@@ -33,7 +36,7 @@ return {
 
         nvimtree.setup({
             view = {
-                width = 35,
+                width = default_width,
                 relativenumber = true,
             },
             renderer = {
@@ -54,6 +57,22 @@ return {
             git = {
                 ignore = false,
             },
+        })
+
+        local function resize_tree_for_focus()
+            local ok, is_visible = pcall(api.tree.is_visible)
+            if not ok or not is_visible then
+                return
+            end
+
+            local width = vim.bo.filetype == "NvimTree" and focused_width or default_width
+            pcall(api.tree.resize, { absolute = width })
+        end
+
+        local tree_focus_group = vim.api.nvim_create_augroup("NvimTreeFocusWidth", { clear = true })
+        vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+            group = tree_focus_group,
+            callback = resize_tree_for_focus,
         })
 
         -- Keymaps för nvim-tree

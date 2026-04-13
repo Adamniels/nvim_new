@@ -39,3 +39,10 @@ opt.timeoutlen = 300        -- Snabbare timeout för keymaps
 
 -- Clipboard
 opt.clipboard = "unnamedplus" -- Använd systemklippbordet
+
+-- Folding
+opt.foldmethod = "expr" -- Använd uttryck för folds
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Bygg folds från Tree-sitter
+opt.foldenable = true -- Aktivera folding
+opt.foldlevel = 99 -- Börja med folds öppna
+opt.foldlevelstart = 99 -- Öppna folds när filer laddas

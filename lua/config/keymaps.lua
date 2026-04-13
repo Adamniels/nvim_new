@@ -27,6 +27,13 @@ keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Ta bort buffer" })
 keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Nästa buffer" })
 keymap.set("n", "<leader>bp", "<cmd>bprev<CR>", { desc = "Föregående buffer" })
 
+-- Folding
+keymap.set("n", "<F13>[", "zc", { desc = "Folda block under cursor" })
+keymap.set("n", "<F13>]", "zo", { desc = "Öppna fold under cursor" })
+keymap.set("n", "<leader>zi", function()
+  print("foldmethod=" .. vim.wo.foldmethod .. " foldexpr=" .. vim.wo.foldexpr)
+end, { desc = "Visa fold-inställningar" })
+
 -- Flytta text upp och ner
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Flytta markerad text ner" })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Flytta markerad text upp" })

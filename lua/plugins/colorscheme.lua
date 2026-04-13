@@ -16,16 +16,22 @@
 --     end
 -- }
 return {
-    "navarasu/onedark.nvim",
+    "Mofiqul/vscode.nvim",
     priority = 1000,
     config = function()
-        require("onedark").setup({
-            style = "dark",
-            transparent = true,          -- use terminal background everywhere
-            lualine = { transparent = true },
+        vim.o.background = "dark"
+
+        require("vscode").setup({
+            transparent = true,
+            italic_comments = true,
+            italic_inlayhints = true,
+            underline_links = true,
+            disable_nvimtree_bg = true,
+            terminal_colors = true,
         })
-        require("onedark").load()
-    end
+
+        vim.cmd.colorscheme("vscode")
+    end,
 }
 -- return {
 --     "catppuccin/nvim",
