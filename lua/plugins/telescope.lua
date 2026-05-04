@@ -29,9 +29,10 @@
 return {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
+    cmd = { "Telescope" },
     dependencies = {
         "nvim-lua/plenary.nvim",                                        -- Lua-funktioner som Telescope behöver
-        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Snabbare fuzzy finding
+        { "nvim-telescope/telescope-fzf-native.nvim", build = "make clean && make" }, -- Snabbare fuzzy finding
         "nvim-tree/nvim-web-devicons",                                  -- Filtypsikoner
     },
     config = function()

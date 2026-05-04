@@ -24,52 +24,75 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" }, -- Ladda när fil öppnas
-  build = ":TSUpdate", -- Uppdatera parsers vid installation
-  config = function()
-    local treesitter = require("nvim-treesitter.configs")
-
-    treesitter.setup({
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = { enable = true },
-      auto_install = true,
-      ensure_installed = {
+  build = ":TSUpdate",
+  event = { "BufReadPre", "BufNewFile" },
+  opts = {
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    indent = { enable = true },
+    auto_install = true,
+    ensure_installed = {
         -- Webbutveckling
         "javascript",
-        "typescript", 
+        "typescript",
         "tsx",
         "html",
         "css",
+        "scss",
         "vue",
+        "graphql",
+        "jsdoc",       -- JSDoc kommentarer i JS/TS
+
+        -- Data & config
         "json",
-        
+        "jsonc",       -- JSON med kommentarer (t.ex. tsconfig.json)
+        "toml",
+        "yaml",
+        "xml",
+
+        -- Databas
+        "sql",
+        "prisma",
+
         -- System programming
         "c",
+        "cpp",
         "rust",
         "java",
-        
+
         -- .NET
         "c_sharp",
-        
+
         -- Scripting
         "python",
         "lua",
+        "luadoc",      -- Lua dokumentationskommentarer
         "bash",
-        
-        -- Markup och config
+
+        -- Markup
         "markdown",
         "markdown_inline",
-        "yaml",
+        "latex",
+
+        -- DevOps
         "dockerfile",
+
+        -- Git
+        "git_config",
+        "git_rebase",
+        "gitcommit",
         "gitignore",
+
+        -- Neovim-specifikt
         "vim",
-        
+        "vimdoc",
+        "query",       -- Treesitter query-filer
+
         -- Övrigt
         "regex",
-        "sql",
+        "comment",     -- TODO/FIXME highlighting
       },
       incremental_selection = {
         enable = true,
@@ -80,6 +103,5 @@ return {
           node_decremental = "<bs>",
         },
       },
-    })
-  end,
+  },
 }

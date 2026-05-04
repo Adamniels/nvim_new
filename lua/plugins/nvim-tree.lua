@@ -23,16 +23,25 @@
 
 return {
     "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle", "NvimTreeFindFile", "NvimTreeCollapse", "NvimTreeRefresh" },
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- För filtypsikoner
+    init = function()
+        -- Open nvim-tree automatically when nvim is launched with a directory.
+        -- This fires before the lazy cmd trigger so the tree appears on `nvim .`
+        vim.api.nvim_create_autocmd("VimEnter", {
+            callback = function(data)
+                if vim.fn.isdirectory(data.file) == 1 then
+                    vim.cmd.cd(data.file)
+                    require("nvim-tree.api").tree.open()
+                end
+            end,
+        })
+    end,
     config = function()
         local nvimtree = require("nvim-tree")
         local api = require("nvim-tree.api")
         local default_width = 35
         local focused_width = 55
-
-        -- Inaktivera netrw (Neovims inbyggda filhanterare) för att undvika konflikter
-        vim.g.loaded_netrw = 1
-        vim.g.loaded_netrwPlugin = 1
 
         nvimtree.setup({
             view = {

@@ -1,6 +1,7 @@
 -- ~/.config/nvim/lua/plugins/scrollbar.lua
 return {
     "petertriho/nvim-scrollbar",
+    event = { "BufReadPost" },
     dependencies = {
         "lewis6991/gitsigns.nvim",
     },

@@ -24,6 +24,7 @@
 
 return {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- För ikoner i statusraden
     config = function()
         local lualine = require("lualine")

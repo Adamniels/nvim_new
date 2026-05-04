@@ -3,6 +3,14 @@
 
 local opt = vim.opt
 
+-- Säkerställ att Homebrew-binärer (t.ex. tree-sitter) finns i Neovims PATH
+vim.env.PATH = "/opt/homebrew/bin:/Users/adamnielsen/.cargo/bin:" .. vim.env.PATH
+
+-- Inaktivera netrw så att nvim-tree kan ta över katalognavigering
+-- Måste sättas innan några plugins laddas
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Utseende
 opt.number = true           -- Visa radnummer
 opt.relativenumber = true   -- Relativa radnummer
@@ -41,8 +49,8 @@ opt.timeoutlen = 300        -- Snabbare timeout för keymaps
 opt.clipboard = "unnamedplus" -- Använd systemklippbordet
 
 -- Folding
-opt.foldmethod = "expr" -- Använd uttryck för folds
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Bygg folds från Tree-sitter
+-- foldmethod and foldexpr are set per-buffer via autocmd in config/lazy.lua
+-- once treesitter has loaded, so they never run against a missing parser.
 opt.foldenable = true -- Aktivera folding
 opt.foldlevel = 99 -- Börja med folds öppna
 opt.foldlevelstart = 99 -- Öppna folds när filer laddas
