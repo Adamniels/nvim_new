@@ -19,10 +19,10 @@ return {
     "Mofiqul/vscode.nvim",
     priority = 1000,
     config = function()
-        vim.o.background = "dark"
+        vim.o.background = "light"
 
         require("vscode").setup({
-            transparent = true,
+            transparent = false,
             italic_comments = true,
             italic_inlayhints = true,
             underline_links = true,
